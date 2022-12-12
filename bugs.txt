@@ -1,0 +1,23 @@
+** For more detail and screen shoots please refer to the Assig4writeup.pdf **
+
+1. While exploring application vulnerabilities and bugs I started with Android studio LOGCAT utility to find out if sensitive information is dumped into systemlogs. 
+Following lines received after a successful login showing token issued to user
+2022-12-08 19:54:37.422 14029-14029/com.example.giftcardsite D/Login Success: Login success. Boo.
+2022-12-08 19:54:37.422 14029-14029/com.example.giftcardsite D/Login Success: Token:a744efc50359f5c9b2b9b7ed24ba5f0e4e2d6bf4
+
+Solution: Logs proved my assumption that the sensitive data is easily accessible. Hence, code which writes to the log must be removed. 
+
+
+2. I made an api call using Postman to check if any endpoints in the available files (UseCard.kt and CarInterface.kt) are vulnerabilities. So the login endpoint did
+return the token and other imformation. Using the token and a random card, I could use the card.
+
+Permanent token should not be used; instead, a temporary session-based token should be issued, one per user per session for authorization. Once the session is complete
+temporary session token should expire and be deleted from system. This will avoid any attacks even if the token is stolen as it will not be useful for another session.
+Commenting Log.d will not be of much help. The better approach is not to issue and store permanent tokens.
+
+Solution: 
+• Proper authentication and authorization access controls on server side api, validating card belongs to user and related token will enforce card use by owner,
+  and not to another user.
+• Implementing a function to generate A long random card number will make it difficult to guess and prevent stealing
+• Token used here is permanent and stored in DB. If this changed to limited time / session cookie will enforce use of username and password. to take it further,
+  MFA implementation will enforce strong authentication

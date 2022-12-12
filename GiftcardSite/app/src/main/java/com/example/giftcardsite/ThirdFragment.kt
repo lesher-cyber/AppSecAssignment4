@@ -42,8 +42,7 @@ class ThirdFragment : Fragment() {
             // If auth successful, move to new activity: logged in activity.
             var username : String = view.findViewById<EditText>(R.id.username).text.toString()
             var password : String = view.findViewById<EditText>(R.id.registerPassword).text.toString()
-
-            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("http://appsecclass.report").addConverterFactory(
+            var builder: Retrofit.Builder = Retrofit.Builder().baseUrl("https://appsecclass.report").addConverterFactory(
                 GsonConverterFactory.create())
             var retrofit: Retrofit = builder.build()
             var client: UserInterface = retrofit.create(UserInterface::class.java)
@@ -65,7 +64,7 @@ class ThirdFragment : Fragment() {
                         loggedInUser = response.body()
                         Log.d("Login Success", "Login success. Boo.")
                         Log.d("Login Success", "Token:" + loggedInUser?.token.toString())
-                        var intent = Intent(activity, ProductScrollingActivity::class.java)
+                        var intent = Intent(activity, ProductScrollingActivity::class.java) //Explicit intent
                         intent.putExtra("User", loggedInUser);
                         startActivity(intent)
                     }

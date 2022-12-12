@@ -1,0 +1,33 @@
+** For more detail and screen shoots please refer to the Assig4writeup.pdf **
+
+Q1. Types of Intent – There are 2 types of intent Implicit and Explicit
+-- Explicit intent - An intent is explicit when an action uses or calls class/package or component within its own app to satisfy the need.
+For example, perform an activity to download a file but action is called within app
+
+-- Implicit Intent – An intent is implicit when an action calls a component from another app or source to handle it.
+For example, a user wants to get location and action call google maps to provide need info.
+This is normally done using (Intent.ACTION_VIEW) as in line # 69 in SecondFragment.kt:
+
+var intent = Intent(Intent.ACTION_VIEW)
+
+
+Q2. Explicit Intent is more secure as the actions are handled within an app.
+Since an implicit intent does not specify a particular application to receive the data,
+any application can process the intent by using an Intent Filter for that intent.
+This can allow untrusted applications to obtain sensitive data, cause privilege escalation or denial-of-service
+
+Q3. The intent in lines 69 to 73 in the file SecondFragment.kt is an Implicit Intent. A URL is used to go thru a https service to get the index of products 
+Secondfragment is called by register new user (action/intent) and shows this implicit intent when the user is registered successfully
+
+Q4. In file ThirdFragment.kt lines 68 to 70 an Explicit intent is used by when ProductScrollingActivity class makes a call within the app to get the list of products.
+ThirdFragment is called when registered user uses the login screen. The application shows the products list.
+
+Q5. Explicit intent is the proper way to do an Intent as it is more secure. However, sometimes there may be the need to use implicit intents.
+In those cases, secure practices must be implemented. As stated above explicit intent are more secure to use. SecondFragment uses implicit
+intent to get product list.
+Using Right Intent -- By looking at the output and clicking on the link used in SecondFragment, I compared the Products View
+(Same screen for Login workflow called in ThirdFragment), I was able to replace the implicit intent with an explicit intent
+by calling ProductScrollingActivity class to get the information within the application. The application worked without any issue.
+The change was also confirmed with registering new user which landed on Products view, similar to login screen using explicit intent.
+
+
